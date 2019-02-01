@@ -7,7 +7,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class ExternalTypePropertyTest {
-    class EnvelopeWithExternalProperty {
+    class Envelope {
         @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.EXTERNAL_PROPERTY, property="type")
         var data: Animal? = null
     }
@@ -26,7 +26,7 @@ class ExternalTypePropertyTest {
         }
         """
 
-        val envelope = objectMapper.readValue(input, EnvelopeWithExternalProperty::class.java)
+        val envelope = objectMapper.readValue(input, Envelope::class.java)
         val animal = envelope.data!!
         assertThat(animal.name, CoreMatchers.equalTo("Anubis"))
         assertThat((animal as Dog).barkVolume, CoreMatchers.equalTo(120))
